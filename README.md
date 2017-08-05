@@ -33,6 +33,7 @@ With the -p modifier, you will see the same progress bar printed (with updated) 
   0% [&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;] 6/1,064   2/sec   eta 8m 14s     https://s3.amazonaws.com/Test-Company-beta<br>
 
 # Notes
+- On lists, I would recommend running this inside of tmux or screen with the -p option so that you can see the current comapny being scanned in case an error is thrown and it stops or you want to manually stop it.
 - Open bucket URLs will be written to open_buckets.txt in the root folder
 - The "scanned" folder contains prior lists that you have scanned.  All names (by line) in these files will be skipped during the scan, to prevent re-running names on random lists you try.
 - On an AWS EC2 t2.micro instance, I was able to search 30 names/sec per thread.
