@@ -17,9 +17,23 @@ Companies, far too often, have public S3 buckets with client data or PII in them
 #Dual threaded scan of the example file (company_names.txt), starting after the 3rd line (using line 1 as the first)<br>
 ./find_public_s3_buckets.py -t 2 -l comapny_names.txt -n 3
 
+#Dual threaded scan of the example file (company_names.txt), printing every guessed bucketname <br>
+./find_public_s3_buckets.py -t 2 -l comapny_names.txt -p
+
+# Output
+Without the -p modifier, you will see a progressbar, like below<br>
+  0% [                                        ] 28/21,147   3/sec   eta 1h 40m 22s
+
+With the -p modifier, you will see the same progress bar printed (with updated) and every guessed name you try.
+  0% [                                        ] 1/1,064   1/sec   eta 10m 49s     https://s3.amazonaws.com/Test
+  0% [                                        ] 2/1,064   1/sec   eta 16m 16s     https://s3.amazonaws.com/Test-Company
+  0% [                                        ] 3/1,064   1/sec   eta 12m 15s     https://s3.amazonaws.com/Test-Company-archive
+  0% [                                        ] 4/1,064   1/sec   eta 10m 13s     https://s3.amazonaws.com/Test-Company-backup
+  0% [                                        ] 5/1,064   1/sec   eta 9m 4s     https://s3.amazonaws.com/Test-Company-bak
+  0% [                                        ] 6/1,064   2/sec   eta 8m 14s     https://s3.amazonaws.com/Test-Company-beta
+
 # Notes
 - Open bucket URLs will be written to open_buckets.txt in the root folder
-- I wanted to print the names of the buckets, as they were being scanned.  If you don't want to, and just want the progressbar, you can comment out line 84 of "find_public_s3_buckets.py"
 - The "scanned" file contains any number of text documents that contain prior lists that you have scanned.  All names in these files will be skipped, to prevent re-running names on random lists you try.
 - On an AWS EC2 t2.micro instance, I was able to search 30 names/sec per thread.
 - If an item has already been scanned, the number of compelted scans will increment
