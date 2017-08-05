@@ -24,7 +24,7 @@ Companies, far too often, have public S3 buckets with client data or PII in them
 Without the -p modifier, you will see a progressbar, like below<br>
   0% [                                        ] 28/21,147   3/sec   eta 1h 40m 22s
 
-With the -p modifier, you will see the same progress bar printed (with updated) and every guessed name you try.
+With the -p modifier, you will see the same progress bar printed (with updated) and every guessed name you try.<br>
   0% [                                        ] 1/1,064   1/sec   eta 10m 49s     https://s3.amazonaws.com/Test<br>
   0% [                                        ] 2/1,064   1/sec   eta 16m 16s     https://s3.amazonaws.com/Test-Company<br>
   0% [                                        ] 3/1,064   1/sec   eta 12m 15s     https://s3.amazonaws.com/Test-Company-archive<br>
