@@ -36,8 +36,9 @@ def search_file(file_name, scanned_buckets, start_after_value, start_after_line_
                     time.sleep(.5)
             else:
                 print "Already scanned {line}".format(line=line)
-                #Add # skipped bucket names
-                search.progress(len(get_string_variations(line)))
+                #Subtract the number of items skipped, to be sure #/sec isn't changed.
+                search.progress.total_items -= len(get_string_variations(line))
+                search.progress(num_compelted=0)
 
 
 def get_num_bucket_names(file_name, start_after_value, start_after_line_num):
