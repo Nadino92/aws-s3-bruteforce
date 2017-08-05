@@ -22,14 +22,6 @@ group.add_argument(
                    )
 
 parser.add_argument(
-                    '-t', 
-                    '--threads',
-                    required=True, 
-                    type=int, 
-                    help="Number of Threads",
-                   )
-
-parser.add_argument(
                     '-a', 
                     '--start_after_value',
                     required=False, 
@@ -42,6 +34,21 @@ parser.add_argument(
                     type=int, 
                     required=False, 
                     help="Start after this line num in the file",
+                   )
+
+parser.add_argument(
+                    '-t', 
+                    '--threads',
+                    required=True, 
+                    type=int, 
+                    help="Number of Threads",
+                   )
+
+parser.add_argument(
+                    '-p', 
+                    '--print_bucket_names',
+                    action='store_true',
+                    help="Print bucket names as they are attempted",
                    )
 
 args = parser.parse_args()

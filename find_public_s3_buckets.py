@@ -10,12 +10,12 @@ from get_previous_scans import *
 from arg_parser import args
 from generate_strings import *
 
-def search_file(file_name, scanned_buckets=[], start_after_value=None, start_after_line_num=1, threads=1):
+def search_file(file_name, scanned_buckets, start_after_value, start_after_line_num, threads, print_bucket_names):
     """Searches through the names in the file, one by one (to save memory)"""
 
     #Create base search instance
     num_bucket_names = get_num_bucket_names(file_name, start_after_value, start_after_line_num)
-    search = Search(bucket_names=[], threads = threads, num_buckets=num_bucket_names)
+    search = Search(bucket_names=[], num_buckets=num_bucket_names, threads=threads, print_bucket_names=print_bucket_names)
 
     found_start = True
     if start_after_line_num or start_after_value:
@@ -30,7 +30,6 @@ def search_file(file_name, scanned_buckets=[], start_after_value=None, start_aft
             continue
         else:
             if line and not any(scanned_bucket.strip() == line.strip() for scanned_bucket in scanned_buckets):
-                # print " {line}".format(line=line)
                 search.bucket_names = get_string_variations(line)
                 start_search(search)
                 while search.bucket_names:
@@ -81,7 +80,8 @@ def search_instance(search):
         try_random_link(url)
         time.sleep(sleep_sec_between_attempts)
         search.progress()
-        print url
+        if search.print_bucket_names:
+            print url
 
 
 def try_random_link(url):
@@ -115,10 +115,11 @@ def log_bucket(file, url):
 
 
 class Search():
-    def __init__(self, bucket_names, threads, num_buckets):
+    def __init__(self, bucket_names, num_buckets, threads, print_bucket_names):
         self.bucket_names = bucket_names
         self.num_buckets = num_buckets
         self.threads = threads
+        self.print_bucket_names = print_bucket_names
         self.progress = ProgressBar(num_buckets)
 
 
@@ -130,14 +131,16 @@ if __name__ == "__main__":
                                     scanned_buckets = get_previous_scans(),
                                     start_after_value = args.start_after_value,
                                     start_after_line_num = args.start_after_line_num,
-                                    threads = args.threads
+                                    threads = args.threads,
+                                    print_bucket_names = args.print_bucket_names
                                   )
     elif args.string:
         bucket_names = get_string_variations(args.string)
         start_search(
                         Search(
                                 bucket_names = bucket_names, 
+                                num_buckets = len(bucket_names),
                                 threads = args.threads,
-                                num_buckets = len(bucket_names)
+                                print_bucket_names = args.print_bucket_names,
                               )
                       )
