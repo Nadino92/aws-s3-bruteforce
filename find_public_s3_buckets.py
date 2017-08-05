@@ -10,22 +10,22 @@ from get_previous_scans import *
 from arg_parser import args
 from generate_strings import *
 
-def search_file(file_name, scanned_buckets=[], start_at_value=None, start_at_line_num=1, threads=1):
+def search_file(file_name, scanned_buckets=[], start_after_value=None, start_after_line_num=1, threads=1):
     """Searches through the names in the file, one by one (to save memory)"""
 
     #Create base search instance
-    num_bucket_names = get_num_bucket_names(file_name, start_at_value, start_at_line_num)
+    num_bucket_names = get_num_bucket_names(file_name, start_after_value, start_after_line_num)
     search = Search(bucket_names=[], threads = threads, num_buckets=num_bucket_names)
 
     found_start = True
-    if start_at_line_num or start_at_value:
+    if start_after_line_num or start_after_value:
         found_start = False
 
     f = open(file_name, "r")
     for index, line in enumerate(f):
         line = line.strip()
         if not found_start:
-            if start_at_line_num == (index + 1) or start_at_value == line:
+            if start_after_line_num == (index + 1) or start_after_value == line:
                 found_start = True
             continue
         else:
@@ -41,18 +41,18 @@ def search_file(file_name, scanned_buckets=[], start_at_value=None, start_at_lin
                 search.progress(len(get_string_variations(line)))
 
 
-def get_num_bucket_names(file_name, start_at_value, start_at_line_num):
+def get_num_bucket_names(file_name, start_after_value, start_after_line_num):
     """Calculates the number of buckets to scan, given the starting point that you want"""
     num_bucket_names = 0
     found_start = True
-    if start_at_line_num or start_at_value:
+    if start_after_line_num or start_after_value:
         found_start = False
 
     f = open(file_name, "r")
     for index, line in enumerate(f):
         line = line.strip()
         if not found_start:
-            if start_at_line_num == (index + 1) or start_at_value == line:
+            if start_after_line_num == (index + 1) or start_after_value == line:
                 found_start = True
             continue
         else:
@@ -128,8 +128,8 @@ if __name__ == "__main__":
         bucket_names = search_file(
                                     file_name = args.list, 
                                     scanned_buckets = get_previous_scans(),
-                                    start_at_value = args.start_at_value,
-                                    start_at_line_num = args.start_at_line_num,
+                                    start_after_value = args.start_after_value,
+                                    start_after_line_num = args.start_after_line_num,
                                     threads = args.threads
                                   )
     elif args.string:

@@ -31,14 +31,14 @@ parser.add_argument(
 
 parser.add_argument(
                     '-a', 
-                    '--start_at_value',
+                    '--start_after_value',
                     required=False, 
                     help="Start after this string in the file",
                    )
 
 parser.add_argument(
                     '-n', 
-                    '--start_at_line_num',
+                    '--start_after_line_num',
                     type=int, 
                     required=False, 
                     help="Start after this line num in the file",
