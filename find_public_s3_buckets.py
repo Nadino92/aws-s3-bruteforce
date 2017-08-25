@@ -93,7 +93,7 @@ def try_random_link(url):
             for bad_response in bad_responses:
                 if bad_response in request.text:
                     # print "\n\n{bad_response} -> {url}\n".format(bad_response=bad_response, url=url)
-                    break
+                    return False
             else:
                 #If a redirect is seen, go to it
                 if "<Endpoint>" in request.text:
@@ -103,9 +103,13 @@ def try_random_link(url):
                 else:
                     print "\n\n*** {status_code} -> {url} ***\n".format(status_code=request.status_code, url=url)
                     log_bucket(file="open_buckets", url=url)
+                    return True
+        else:
+            return False
     except Exception as e:
         print "\n\nERROR - {url} - {error}\n".format(url=url, error=e)
         # log_bucket(file="error", url=url)
+        return False
 
 
 def log_bucket(file, url):
@@ -152,6 +156,8 @@ if __name__ == "__main__":
                       )
     elif args.random_string_options:
         if args.chars:
+            buckets_found = []
+
             #Get upper/lower bounds
             lower_bound, upper_bound = args.chars.split("-")
 
@@ -164,12 +170,16 @@ if __name__ == "__main__":
                                                     length=random.randint(int(lower_bound.strip()),int(upper_bound.strip())), 
                                                     string_options=args.random_string_options
                                                     )
-                url = "{base_url}{bucket_name}".format(base_url=base_url, bucket_name=bucket_name)
-                try_random_link(url)
+                #Just in case the bucket has been found, don't try again.
+                #Not storing all to prevent massive memory usage.
+                if bucket_name not in buckets_found:
+                    url = "{base_url}{bucket_name}".format(base_url=base_url, bucket_name=bucket_name)
+                    if try_random_link(url):
+                        buckets_found.append(bucket_name)
 
-                #Increment progress and sleep                
-                progressbar()
-                progressbar.total_items += 1
-                time.sleep(sleep_sec_between_attempts)
+                    #Increment progress and sleep                
+                    progressbar()
+                    progressbar.total_items += 1
+                    time.sleep(sleep_sec_between_attempts)
         else:
             print '''Need to define the range of chars using the '-c' option, e.g '-c 3-12' '''
