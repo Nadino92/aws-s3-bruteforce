@@ -115,6 +115,11 @@ def log_bucket(file, url):
     f.close()
 
 
+def create_random_string(length, string_options):
+    """Create a random string of the given length, with the given set of characters"""
+    return ''.join(random.choice(string_options) for i in range(length))
+
+
 class Search():
     def __init__(self, bucket_names, num_buckets, threads, print_bucket_names):
         self.bucket_names = bucket_names
@@ -145,3 +150,17 @@ if __name__ == "__main__":
                                 print_bucket_names = args.print_bucket_names,
                               )
                       )
+    elif args.random_string_options:
+        if args.chars:
+            lower_bound, upper_bound = args.chars.split("-")
+            while True:
+                bucket_name = create_random_string(
+                                                    length=random.randint(int(lower_bound.strip()),int(upper_bound.strip())), 
+                                                    string_options=args.random_string_options
+                                                    )
+                url = "{base_url}{bucket_name}".format(base_url=base_url, bucket_name=bucket_name)
+                print "Trying: {url}".format(url=url)
+                try_random_link(url)
+                time.sleep(sleep_sec_between_attempts)
+        else:
+            print '''Need to define the range of chars using the '-c' option, e.g '-c 3-12' '''
