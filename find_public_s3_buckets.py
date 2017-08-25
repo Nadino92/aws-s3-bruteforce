@@ -152,15 +152,24 @@ if __name__ == "__main__":
                       )
     elif args.random_string_options:
         if args.chars:
+            #Get upper/lower bounds
             lower_bound, upper_bound = args.chars.split("-")
+
+            #Create progressbar to show how many searches have been done, removing eta
+            progressbar = ProgressBar(1)
+            progressbar.fmt = '''%(percent)3d%% %(bar)s %(current)s/%(total_items)s   %(items_per_sec)s '''
+
             while True:
                 bucket_name = create_random_string(
                                                     length=random.randint(int(lower_bound.strip()),int(upper_bound.strip())), 
                                                     string_options=args.random_string_options
                                                     )
                 url = "{base_url}{bucket_name}".format(base_url=base_url, bucket_name=bucket_name)
-                print "Trying: {url}".format(url=url)
                 try_random_link(url)
+
+                #Increment progress and sleep                
+                progressbar()
+                progressbar.total_items += 1
                 time.sleep(sleep_sec_between_attempts)
         else:
             print '''Need to define the range of chars using the '-c' option, e.g '-c 3-12' '''
