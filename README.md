@@ -1,6 +1,8 @@
 # Purpose
 For a given comapny name, try a large variety of permutations in order to guess AWS S3 bucket names, identifying those that are public, printing them to the screen and open_buckets.txt.
 
+For a given set of chars (e.g. abc123) and a number range (e.g. 3-5), generate random strings within the length range, using the given set of chars, to find public buckets, printing them to the screen and open_buckets.txt.
+
 # Reason
 Companies, far too often, have public S3 buckets with client data or PII in them.  Details of my adventures are here: https://www.mattsvensson.com/nerdings/2017/7/27/amazon-s3-bucket-searching-and-scraping
 
@@ -20,7 +22,10 @@ Companies, far too often, have public S3 buckets with client data or PII in them
 #Dual threaded scan of the example file (company_names.txt), printing every guessed bucketname <br>
 ./find_public_s3_buckets.py -t 2 -l comapny_names.txt -p
 
-# Output
+#Single thread, random strings with lowercase letters, 3-5 chars long.
+./find_public_s3_buckets.py -t 1 -r abcdefghijklmnopqrstuvwxyz -c 3-5
+
+# Output - List of names
 Without the -p modifier, you will see a progressbar, like below<br>
   0% [&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;] 28/21,147   3/sec   eta 1h 40m 22s
 
