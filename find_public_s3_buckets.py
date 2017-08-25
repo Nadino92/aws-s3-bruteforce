@@ -163,7 +163,7 @@ if __name__ == "__main__":
 
             #Create progressbar to show how many searches have been done, removing eta
             progressbar = ProgressBar(1)
-            progressbar.fmt = '''%(percent)3d%% %(bar)s %(current)s/%(total_items)s   %(items_per_sec)s '''
+            progressbar.fmt = '''%(percent)3d%% %(bar)s %(current)s/%(total_items)s   %(items_per_sec)s   %(run_time)s'''
 
             while True:
                 bucket_name = create_random_string(
