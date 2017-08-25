@@ -22,7 +22,7 @@ Companies and individuals, far too often, have public S3 buckets with client dat
 #Dual threaded scan of the example file (company_names.txt), printing every guessed bucketname <br>
 ./find_public_s3_buckets.py -t 2 -l comapny_names.txt -p
 
-#Single thread, random strings with lowercase letters, 3-5 chars long.
+#Single thread, random strings with lowercase letters, 3-5 chars long. <br>
 ./find_public_s3_buckets.py -t 1 -r abcdefghijklmnopqrstuvwxyz -c 3-5
 
 # Output - List of names
