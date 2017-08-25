@@ -38,7 +38,11 @@ class ProgressBar(object):
         size = int(self.width * percent)
         run_time = time.time() - self.start_epoch
         remaining = self.total_items - self.current
-        time_left = (run_time/self.current) * remaining
+        try:
+            time_left = (run_time/self.current) * remaining
+        except:
+            time_left = 0
+
 
         #Args to populate into fmt
         args = {
@@ -47,7 +51,8 @@ class ProgressBar(object):
             'current': "{:,}".format(self.current),
             'total_items': "{:,}".format(self.total_items),
             'items_per_sec': "{items_per_sec}/sec".format(items_per_sec="{:,}".format(int(self.current / run_time))),
-            'eta': self.get_eta(int(time_left))
+            'eta': self.get_eta(int(time_left)),
+            'run_time': self.get_eta(run_time),
         }
 
         #Print the update
