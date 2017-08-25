@@ -9,6 +9,8 @@ from constants import *
 from get_previous_scans import *
 from arg_parser import args
 from generate_strings import *
+from random_search import *
+
 
 def search_file(file_name, scanned_buckets, start_after_value, start_after_line_num, threads, print_bucket_names):
     """Searches through the names in the file, one by one (to save memory)"""
@@ -123,9 +125,7 @@ def log_bucket(file, url):
     f.close()
 
 
-def create_random_string(length, string_options):
-    """Create a random string of the given length, with the given set of characters"""
-    return ''.join(random.choice(string_options) for i in range(length))
+
 
 
 class Search():
@@ -160,30 +160,12 @@ if __name__ == "__main__":
                       )
     elif args.random_string_options:
         if args.chars:
-            buckets_found = []
-
             #Get upper/lower bounds
             lower_bound, upper_bound = args.chars.split("-")
-
-            #Create progressbar to show how many searches have been done, removing eta
-            progressbar = ProgressBar(1)
-            progressbar.fmt = '''%(percent)3d%% %(bar)s %(current)s/%(total_items)s   %(items_per_sec)s   %(run_time)s'''
-
-            while True:
-                bucket_name = create_random_string(
-                                                    length=random.randint(int(lower_bound.strip()),int(upper_bound.strip())), 
-                                                    string_options=args.random_string_options
-                                                    )
-                #Just in case the bucket has been found, don't try again.
-                #Not storing all to prevent massive memory usage.
-                if bucket_name not in buckets_found:
-                    url = "{base_url}{bucket_name}".format(base_url=base_url, bucket_name=bucket_name)
-                    if try_random_link(url):
-                        buckets_found.append(bucket_name)
-
-                    #Increment progress and sleep                
-                    progressbar()
-                    progressbar.total_items += 1
-                    time.sleep(sleep_sec_between_attempts)
+            run_random_search(
+                                lower_bound=int(lower_bound.strip()), 
+                                upper_bound=int(upper_bound.strip()),
+                                random_string_options = args.random_string_options,
+                             )
         else:
             print '''Need to define the range of chars using the '-c' option, e.g '-c 3-12' '''
