@@ -101,9 +101,13 @@ def try_random_link(url):
                     # print "-->> {url} redirected to {redirect_link}".format(url=url, redirect_link=redirect_link)
                     try_random_link(redirect_link)
                 else:
-                    print "\n\n*** {status_code} -> {url} ***\n".format(status_code=request.status_code, url=url)
-                    log_bucket(file="open_buckets", url=url)
-                    return True
+                    if "<Key>" in request.text:
+                        print "\n\n*** {status_code} -> {url} ***\n".format(status_code=request.status_code, url=url)
+                        log_bucket(file="open_buckets", url=url)
+                        return True
+                    else:
+                        print "\n\n*** EMPTY *** {status_code} -> {url} *** EMPTY ***\n".format(status_code=request.status_code, url=url)
+                        return True
         else:
             return False
     except Exception as e:
