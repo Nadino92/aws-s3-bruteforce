@@ -23,6 +23,12 @@ def run_comb_perm_search(search):
     #Create a string generator
     search.string_generator = createStringGenerator(search.string_options, search.num_chars)
 
+    #Check and see if a start after value was provided
+    if search.start_after_value:
+        search.start_after_found = False
+    else:
+        search.start_after_found = True
+    
     my_queue = Queue.Queue()
     for i in range(search.threads+1):
         t = threading.Thread(target=search_instance, args=(search, ))
