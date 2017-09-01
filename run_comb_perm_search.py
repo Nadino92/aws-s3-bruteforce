@@ -39,6 +39,12 @@ def search_instance(search):
         try:
             bucket_name = search.string_generator.next()
 
+            #Check and see if the starting point exists or has been found
+            if not search.start_after_found:
+                if bucket_name == search.start_after:
+                    search.start_after_found = True
+                continue
+            
             #Just in case the bucket has been found, don't try again.
             #Not storing all to prevent massive memory usage.
             if bucket_name not in search.buckets_found:
