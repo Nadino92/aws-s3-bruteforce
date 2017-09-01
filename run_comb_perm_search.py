@@ -47,7 +47,7 @@ def search_instance(search):
 
             #Check and see if the starting point exists or has been found
             if not search.start_after_found:
-                if bucket_name == search.start_after:
+                if bucket_name == search.start_after_value:
                     search.start_after_found = True
                 continue
             
