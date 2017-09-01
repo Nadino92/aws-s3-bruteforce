@@ -68,7 +68,7 @@ parser.add_argument(
                     '-f', 
                     '--stop_at_value',
                     required=False, 
-                    help='Stop once you reach this char.  For use with -cp to segment searches, e.g. aa->mz and na->zz',
+                    help='Stop once you reach this char; do not search it.  For use with -cp to segment searches',
                    )
 
 parser.add_argument(
