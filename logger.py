@@ -9,7 +9,7 @@ def get_buckets_found(output_file):
     try:
         if not output_file:
             output_file = "buckets_found.txt"
-        with open("buckets_found.txt", 'r') as f:
+        with open(output_file, 'r') as f:
             for line in f:
                 if line.strip():
                     try:
