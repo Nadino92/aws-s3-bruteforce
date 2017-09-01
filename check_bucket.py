@@ -54,5 +54,6 @@ def check_s3_bucket(bucket_name, redirect=False):
             bucket_result["empty"] = False
             return bucket_result
         else:
+            bucket_result["empty"] = True
             return bucket_result
 
