@@ -22,3 +22,4 @@ class SearchStrings():
         self.print_bucket_names = print_bucket_names
         self.output_file = output_file
         self.start_after = start_after
+        self.start_after_found = None
