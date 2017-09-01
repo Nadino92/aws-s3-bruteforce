@@ -47,11 +47,12 @@ if __name__ == "__main__":
                                         threads = args.threads,
                                         print_bucket_names = args.print_bucket_names,
                                         output_file = args.output_file,
+                                        start_after = None
                                     )
                                  )
         else:
             print '''\n*** Need to define the number of chars or range using the '-c' or '-cr' option ***\n'''
-    #Se3arch combinations and permutations of a set of characters for a given length
+    #Search combinations and permutations of a set of characters for a given length
     elif args.all_comb_perm:
         if args.num_chars:
             run_comb_perm_search(
@@ -62,6 +63,7 @@ if __name__ == "__main__":
                                         threads = args.threads,
                                         print_bucket_names = args.print_bucket_names,
                                         output_file = args.output_file,
+                                        start_after = args.start_after_value
                                     )
                                 )
         else:
