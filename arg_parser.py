@@ -55,13 +55,20 @@ group.add_argument(
 
 
 ###########################################################################
-########                     List related items                    ########
+########            Start/Stop point related items                 ########
 ###########################################################################
 parser.add_argument(
                     '-a', 
                     '--start_after_value',
                     required=False, 
                     help='Start after this string in the list file (-l) or comb/perm search (-cp)',
+                   )
+
+parser.add_argument(
+                    '-f', 
+                    '--stop_at_value',
+                    required=False, 
+                    help='Stop once you reach this char.  For use with -cp to segment searches, e.g. aa->mz and na->zz',
                    )
 
 parser.add_argument(

@@ -28,6 +28,12 @@ def run_comb_perm_search(search):
         search.start_after_found = False
     else:
         search.start_after_found = True
+
+    #See if a stop at value is seen
+    if search.stop_at_value:
+        search.stop_at_found = False
+    else:
+        search.stop_at_found = False
     
     my_queue = Queue.Queue()
     for i in range(search.threads+1):
@@ -44,6 +50,12 @@ def search_instance(search):
     while True:
         try:
             bucket_name = search.string_generator.next()
+
+            #Check and see if you're at the stopping point
+            if search.stop_at_value == bucket_name:
+                search.stop_at_found = True
+            if search.stop_at_value and search.stop_at_found:
+                break
 
             #Check and see if the starting point exists or has been found
             if not search.start_after_found:
