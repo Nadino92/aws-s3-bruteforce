@@ -41,6 +41,8 @@ Companies and individuals, far too often, have public S3 buckets with client dat
 #Random strings with lowercase and numbers, 4 char long <br>
 ./find_public_buckets.py -cp abcdefghijklmnopqrstuvwxyz0123456789 -c 4
 
+#Multithreaded random strings with lowercase and numbers, 4 char long <br>
+./find_public_buckets.py -cp abcdefghijklmnopqrstuvwxyz0123456789 -c 4 -t 2
 
 # Output -p modifier to pring New Guesses
 Without the -p modifier, you will see a progressbar, like below<br>
