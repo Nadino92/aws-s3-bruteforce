@@ -61,7 +61,7 @@ parser.add_argument(
                     '-a', 
                     '--start_after_value',
                     required=False, 
-                    help='Start after this string in the file',
+                    help='Start after this string in the list file',
                    )
 
 parser.add_argument(
@@ -69,7 +69,7 @@ parser.add_argument(
                     '--start_after_line_num',
                     type=int, 
                     required=False, 
-                    help='Start after this line num in the file',
+                    help='Start after this line num in the list file',
                    )
 
 
