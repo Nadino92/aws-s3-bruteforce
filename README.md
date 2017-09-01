@@ -44,6 +44,9 @@ Companies and individuals, far too often, have public S3 buckets with client dat
 #Multithreaded random strings with lowercase and numbers, 4 char long <br>
 ./find_public_buckets.py -cp abcdefghijklmnopqrstuvwxyz0123456789 -c 4 -t 2
 
+#Multithreaded random strings with lowercase and numbers, 4 char long, starting after "bcd", i.e. starting at "bde" <br>
+./find_public_buckets.py -cp abcdefghijklmnopqrstuvwxyz0123456789 -c 4 -t 2 -a bcd
+
 # Output -p modifier to pring New Guesses
 Without the -p modifier, you will see a progressbar, like below<br>
   0% [&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;] 28/21,147   3/sec   eta 1h 40m 22s
