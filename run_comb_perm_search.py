@@ -49,6 +49,7 @@ def search_instance(search):
             if not search.start_after_found:
                 if bucket_name == search.start_after_value:
                     search.start_after_found = True
+                search.total_items -= 1
                 continue
             
             #Just in case the bucket has been found, don't try again.
