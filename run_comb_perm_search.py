@@ -52,8 +52,12 @@ def search_instance(search):
                 if search.print_bucket_names:
                     print bucket_name
                 time.sleep(sleep_sec_between_attempts)
+        #Generator is empty...done
         except StopIteration:
             break
+        #Generator is already running for another thread
+        except ValueError:
+            pass
 
 
 def get_num_comb_perm(string_options, num_chars):
