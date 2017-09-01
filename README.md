@@ -34,7 +34,7 @@ Companies and individuals, far too often, have public S3 buckets with client dat
 #Random strings with lowercase letters, 3-5 chars long. <br>
 ./find_public_buckets.py -r abcdefghijklmnopqrstuvwxyz -cr 3-5
 
-# Use - All Permutations of a given set of chars, for a given length
+# Use - All Permutations of a set of chars, for a given length
 #Random strings with lowercase and numbers, 4 char long <br>
 ./find_public_buckets.py -cp abcdefghijklmnopqrstuvwxyz0123456789 -c 4
 
