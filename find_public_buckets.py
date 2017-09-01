@@ -44,6 +44,7 @@ if __name__ == "__main__":
                                         num_chars=args.num_chars,
                                         num_chars_range=args.num_chars_range,
                                         string_options = args.random_string_options,
+                                        threads = args.threads,
                                         print_bucket_names = args.print_bucket_names,
                                         output_file = args.output_file,
                                     )
@@ -58,6 +59,7 @@ if __name__ == "__main__":
                                         num_chars=args.num_chars,
                                         num_chars_range=args.num_chars_range,
                                         string_options = args.all_comb_perm,
+                                        threads = args.threads,
                                         print_bucket_names = args.print_bucket_names,
                                         output_file = args.output_file,
                                     )

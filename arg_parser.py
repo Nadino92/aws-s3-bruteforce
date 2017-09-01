@@ -12,7 +12,7 @@ parser.add_argument(
                     '--threads',
                     default=1,
                     type=int,
-                    help='(optional) Number of Threads, For -l/-s ONLY, default is 1',
+                    help='(optional) Number of Threads',
                    )
 
 parser.add_argument(
