@@ -61,7 +61,7 @@ parser.add_argument(
                     '-a', 
                     '--start_after_value',
                     required=False, 
-                    help='Start after this string in the list file',
+                    help='Start after this string in the list file (-l) or comb/perm search (-cp)',
                    )
 
 parser.add_argument(
