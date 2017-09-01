@@ -60,6 +60,9 @@ def search_instance(search):
                     search.progressbar.total_items += 1
                     print bucket_name
                 time.sleep(sleep_sec_between_attempts)
-        except StopIteration as e:
-            print e
+        #Generator is empty...done
+        except StopIteration:
             break
+        #Generator is already running for another thread
+        except ValueError:
+            pass
