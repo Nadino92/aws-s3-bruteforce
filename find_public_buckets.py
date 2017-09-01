@@ -47,7 +47,7 @@ if __name__ == "__main__":
                                         threads = args.threads,
                                         print_bucket_names = args.print_bucket_names,
                                         output_file = args.output_file,
-                                        start_after = None
+                                        start_after_value = None
                                     )
                                  )
         else:
@@ -63,7 +63,7 @@ if __name__ == "__main__":
                                         threads = args.threads,
                                         print_bucket_names = args.print_bucket_names,
                                         output_file = args.output_file,
-                                        start_after = args.start_after_value
+                                        start_after_value = args.start_after_value
                                     )
                                 )
         else:
