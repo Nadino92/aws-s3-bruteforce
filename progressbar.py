@@ -20,7 +20,7 @@ class ProgressBar(object):
         self.width = 40                 #Length of progress bar
         self.symbol = "#"               #Needs to be 1 char
         self.output = sys.stderr
-        self.fmt = '''%(percent)3d%% %(bar)s %(current)s/%(total_items)s   %(items_per_sec)s   eta %(eta)s'''
+        self.fmt = '''%(percent)3d%% %(bar)s %(current)s/%(total_items)s   %(items_per_sec)s   ETA: %(eta)s'''
         assert len(self.symbol) == 1    #If higher, progress bar won't populate properly
         assert self.width <= 150        #If higher, it'll takeup more than one line of text
 

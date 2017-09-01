@@ -2,15 +2,7 @@
 base_url = "https://s3.amazonaws.com/"
 
 #Seconds to sleep between attempts
-sleep_sec_between_attempts = .01
-
-#Respones that indicate the bucket doesn't exist or is not public
-bad_responses = [
-                "Access Denied",
-                "AllAccessDisabled",
-                "NoSuchBucket",
-                "InvalidBucketName",
-              ]
+sleep_sec_between_attempts = .10
 
 #Company entity endings to check for and add to list, with them removed
 entities = [

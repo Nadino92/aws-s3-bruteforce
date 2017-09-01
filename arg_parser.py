@@ -5,10 +5,32 @@
 ###############################################
 import argparse
 
-#Documentation
-parser = argparse.ArgumentParser(description='''This is a example of how to user argparse.  Nothing fancy.''')
+parser = argparse.ArgumentParser(description='''''')
 
-#Arguments
+parser.add_argument(
+                    '-t', 
+                    '--threads',
+                    default=1,
+                    type=int,
+                    help='(optional) Number of Threads, For -l/-s ONLY, default is 1',
+                   )
+
+parser.add_argument(
+                    '-o', 
+                    '--output_file',
+                    help='(optional) Modify the output folder, replaces the buckets_found.txt file',
+                   )
+
+parser.add_argument(
+                    '-p', 
+                    '--print_bucket_names',
+                    action='store_true',
+                    help='Print bucket names as they are attempted',
+                   )
+
+###########################################################################
+########                      Types of search                      ########
+###########################################################################
 group = parser.add_mutually_exclusive_group(required=True)
 group.add_argument(
                     '-l',
@@ -25,7 +47,16 @@ group.add_argument(
                     '--random_string_options',
                     help='Chars to create random strings from, until script is stopped'
                    )
+group.add_argument(
+                    '-cp',
+                    '--all_comb_perm',
+                    help='Goes through all combinations and permutations of the string.  Requires the -c option'
+                   )
 
+
+###########################################################################
+########                     List related items                    ########
+###########################################################################
 parser.add_argument(
                     '-a', 
                     '--start_after_value',
@@ -41,26 +72,24 @@ parser.add_argument(
                     help='Start after this line num in the file',
                    )
 
-parser.add_argument(
-                    '-t', 
-                    '--threads',
-                    required=True, 
-                    type=int, 
-                    help='Number of Threads',
-                   )
 
-parser.add_argument(
-                    '-p', 
-                    '--print_bucket_names',
-                    action='store_true',
-                    help='Print bucket names as they are attempted',
-                   )
-
+###########################################################################
+########     Number of charaters for random or comb/perm tests     ########
+###########################################################################
 parser.add_argument(
                     '-c', 
-                    '--chars',
+                    '--num_chars',
                     required=False, 
-                    help='Range of chars for the random string, e.g. 3-12',
+                    type=int, 
+                    help='Number of chars the generated string should be',
+                  ) 
+
+parser.add_argument(
+                    '-cr', 
+                    '--num_chars_range',
+                    required=False, 
+                    help='Range of the number of chars the generated string should be, e.g. "-cr 3-4"',
                   )
 
+#Compile the argument paser options
 args = parser.parse_args()
