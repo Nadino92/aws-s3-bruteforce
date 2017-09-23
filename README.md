@@ -8,6 +8,9 @@ For a given ser of chars (e.g. -cp abc123) and a number of characters (e.g. -c 4
 # Reason
 Companies and individuals, far too often, have public S3 buckets with client data or PII in them.  Details of my adventures are here: https://www.mattsvensson.com/nerdings/2017/7/27/amazon-s3-bucket-searching-and-scraping
 
+# Doing it at scale
+If you want to do a bruteforce of bucket names across a character set via a master-worker articture, send me a message.  I created one as part of a personal project but have yet to document it to the level required to make it a public repo.
+
 # Use - List
 #Single threaded scan of a given company name<br>
 ./find_public_buckets.py -t 1 -s "This Company Name"
