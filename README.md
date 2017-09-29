@@ -70,3 +70,4 @@ With the -p modifier, you will see the same progress bar printed (with updated) 
 - Buckets that exist will be written to found/buckets_found.txt in the root folder
 - The "scanned" folder contains prior lists that you have scanned.  All names (by line) in these files will be skipped during the scan, to prevent re-running names on random lists you try.
 - On an AWS EC2 t2.micro instance, I was able to search 30 names/sec per thread on a list of names.
+
