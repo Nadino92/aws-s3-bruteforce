@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from constants import *
 
-def get_string_variations(string):
+def get_string_variations(string, prefix_postfix_option):
     #Names are not case sensitive
     string = string.lower()
 
@@ -11,7 +11,7 @@ def get_string_variations(string):
     #All all sorts of variations of the name
     add_with_no_entity(names)
     add_with_space_replacements(names)
-    add_with_prefix_postfix_domains(names)
+    add_with_prefix_postfix_domains(names, prefix_postfix_option)
 
     #Get the sorted set of names
     names = sorted(list(set(names)))
@@ -80,7 +80,7 @@ def add_with_space_replacements(names):
     names.extend(space_replaced_names)
 
 
-def add_with_prefix_postfix_domains(names):
+def add_with_prefix_postfix_domains(names, prefix_postfix_option):
     '''For every name varient, add prefixes and postfixes, e.g. dev, www, .com, etc
        Don't add prefix+postfix or you'll end up with internal-site-dev
     '''
@@ -89,8 +89,10 @@ def add_with_prefix_postfix_domains(names):
         #Add prefixes and postixes, SEPARATE so you don't get things like dev.site-internal
         for prefix_postfix in prefixes_postfixes:
             for prefix_postfix_separator in prefix_postfix_separators:
-                names_with_additions.append("{prefix_postfix}{prefix_postfix_separator}{name}".format(prefix_postfix=prefix_postfix, prefix_postfix_separator=prefix_postfix_separator, name=name))     
-                names_with_additions.append("{name}{prefix_postfix_separator}{prefix_postfix}".format(name=name, prefix_postfix_separator=prefix_postfix_separator, prefix_postfix=prefix_postfix))
+                if prefix_postfix_option == "prefix" or prefix_postfix_option == "both":
+                    names_with_additions.append("{prefix_postfix}{prefix_postfix_separator}{name}".format(prefix_postfix=prefix_postfix, prefix_postfix_separator=prefix_postfix_separator, name=name))     
+                if prefix_postfix_option == "postfix" or prefix_postfix_option == "both":
+                    names_with_additions.append("{name}{prefix_postfix_separator}{prefix_postfix}".format(name=name, prefix_postfix_separator=prefix_postfix_separator, prefix_postfix=prefix_postfix))
 
         #Only add domains if none of them are in the string yet
         if not any(domain in name for domain in domains):
@@ -99,10 +101,14 @@ def add_with_prefix_postfix_domains(names):
                 names_with_additions.append("www.{name}{domain}".format(name=name, domain=domain))
                 for prefix_postfix in prefixes_postfixes:
                     for prefix_postfix_separator in prefix_postfix_separators:
-                        names_with_additions.append("{prefix_postfix}{prefix_postfix_separator}{name}{domain}".format(prefix_postfix=prefix_postfix, prefix_postfix_separator=prefix_postfix_separator, name=name, domain=domain))
-                        names_with_additions.append("{prefix_postfix}{prefix_postfix_separator}www.{name}{domain}".format(prefix_postfix=prefix_postfix, prefix_postfix_separator=prefix_postfix_separator, name=name, domain=domain))
-                        names_with_additions.append("{name}{domain}{prefix_postfix_separator}{prefix_postfix}".format(name=name, domain=domain, prefix_postfix_separator=prefix_postfix_separator, prefix_postfix=prefix_postfix))
-                        names_with_additions.append("www.{name}{domain}{prefix_postfix_separator}{prefix_postfix}".format(name=name, domain=domain, prefix_postfix_separator=prefix_postfix_separator, prefix_postfix=prefix_postfix))
+                        #Add as a prefix
+                        if prefix_postfix_option == "prefix" or prefix_postfix_option == "both":
+                            names_with_additions.append("{prefix_postfix}{prefix_postfix_separator}{name}{domain}".format(prefix_postfix=prefix_postfix, prefix_postfix_separator=prefix_postfix_separator, name=name, domain=domain))
+                            names_with_additions.append("{prefix_postfix}{prefix_postfix_separator}www.{name}{domain}".format(prefix_postfix=prefix_postfix, prefix_postfix_separator=prefix_postfix_separator, name=name, domain=domain))
+                        #Add as a postfix
+                        if prefix_postfix_option == "postfix" or prefix_postfix_option == "both":
+                            names_with_additions.append("{name}{domain}{prefix_postfix_separator}{prefix_postfix}".format(name=name, domain=domain, prefix_postfix_separator=prefix_postfix_separator, prefix_postfix=prefix_postfix))
+                            names_with_additions.append("www.{name}{domain}{prefix_postfix_separator}{prefix_postfix}".format(name=name, domain=domain, prefix_postfix_separator=prefix_postfix_separator, prefix_postfix=prefix_postfix))
     names.extend(names_with_additions)
 
 

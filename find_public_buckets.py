@@ -13,7 +13,8 @@ if __name__ == "__main__":
     #Search a given list of company names, permuting them
     if args.list:
         bucket_names = search_file(
-                                    file_name = args.list, 
+                                    file_name = args.list,
+                                    prefix_postfix_option = args.prefix_or_postfix,
                                     scanned_buckets = get_previous_scans(),
                                     start_after_value = args.start_after_value,
                                     start_after_line_num = args.start_after_line_num,
@@ -23,7 +24,7 @@ if __name__ == "__main__":
                                   )
     #Search permutations of a string
     elif args.string:
-        bucket_names = get_string_variations(args.string)
+        bucket_names = get_string_variations(args.string, args.prefix_or_postfix)
         start_search(
                         SearchNames(
                                 bucket_names = bucket_names, 

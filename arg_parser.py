@@ -52,7 +52,12 @@ group.add_argument(
                     '--all_comb_perm',
                     help='Goes through all combinations and permutations of the string.  Requires the -c option'
                    )
-
+parser.add_argument(
+                    '-pp', 
+                    '--prefix_or_postfix',
+                    default="both",
+                    help='(optional) Pick if you want to do add variablese to the "prefix" "postfix" or "both"',
+                   )
 
 ###########################################################################
 ########            Start/Stop point related items                 ########
