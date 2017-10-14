@@ -34,7 +34,12 @@ class ProgressBar(object):
 
         #Update calculations/values
         self.current += num_compelted
-        percent = self.current / float(self.total_items)
+
+        try:
+            percent = self.current / float(self.total_items)
+        except:
+            percent = 0
+        
         size = int(self.width * percent)
         run_time = time.time() - self.start_epoch
         remaining = self.total_items - self.current

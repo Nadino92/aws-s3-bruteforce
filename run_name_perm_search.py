@@ -17,7 +17,8 @@ def search_file(file_name, prefix_postfix_option, scanned_buckets, start_after_v
     """Searches through the names in the file, one by one (to save memory)"""
     #Create base search instance
     num_bucket_names = get_num_bucket_names(file_name, start_after_value, start_after_line_num, prefix_postfix_option)
-    search = SearchNames(bucket_names=[], num_buckets=num_bucket_names, threads=threads, print_bucket_names=print_bucket_names)
+    search = SearchNames(bucket_names=[], num_buckets=num_bucket_names, threads=threads, print_bucket_names=print_bucket_names, output_file=output_file)
+
 
     found_start = True
     if start_after_line_num or start_after_value:
