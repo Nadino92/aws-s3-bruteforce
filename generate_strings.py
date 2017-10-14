@@ -2,6 +2,9 @@
 from constants import *
 
 def get_string_variations(string):
+    #Names are not case sensitive
+    string = string.lower()
+
     #Remove junk chars that can't be in the bucket name, e.g & , "
     names = remove_junk_chars(string)
 
@@ -9,7 +12,6 @@ def get_string_variations(string):
     add_with_no_entity(names)
     add_with_space_replacements(names)
     add_with_prefix_postfix_domains(names)
-    add_lower_case_versions(names)
 
     #Get the sorted set of names
     names = sorted(list(set(names)))
@@ -85,31 +87,23 @@ def add_with_prefix_postfix_domains(names):
     names_with_additions = []
     for name in names:
         #Add prefixes and postixes, SEPARATE so you don't get things like dev.site-internal
-        for prefix in prefixes:
-            names_with_additions.append("{prefix}{name}".format(prefix=prefix, name=name))     
-        for postfix in postfixes:
-            names_with_additions.append("{name}{postfix}".format(name=name, postfix=postfix))
+        for prefix_postfix in prefixes_postfixes:
+            for prefix_postfix_separator in prefix_postfix_separators:
+                names_with_additions.append("{prefix_postfix}{prefix_postfix_separator}{name}".format(prefix_postfix=prefix_postfix, prefix_postfix_separator=prefix_postfix_separator, name=name))     
+                names_with_additions.append("{name}{prefix_postfix_separator}{prefix_postfix}".format(name=name, prefix_postfix_separator=prefix_postfix_separator, prefix_postfix=prefix_postfix))
 
         #Only add domains if none of them are in the string yet
         if not any(domain in name for domain in domains):
             for domain in domains:
                 names_with_additions.append("{name}{domain}".format(name=name, domain=domain))
                 names_with_additions.append("www.{name}{domain}".format(name=name, domain=domain))
-                for prefix in prefixes:
-                    names_with_additions.append("{prefix}{name}{domain}".format(prefix=prefix, name=name, domain=domain))
-                    names_with_additions.append("{prefix}www.{name}{domain}".format(prefix=prefix, name=name, domain=domain))
-                for postfix in postfixes:
-                    names_with_additions.append("{name}{domain}{postfix}".format(name=name, domain=domain, postfix=postfix))
-                    names_with_additions.append("www.{name}{domain}{postfix}".format(name=name, domain=domain, postfix=postfix))
+                for prefix_postfix in prefixes_postfixes:
+                    for prefix_postfix_separator in prefix_postfix_separators:
+                        names_with_additions.append("{prefix_postfix}{prefix_postfix_separator}{name}{domain}".format(prefix_postfix=prefix_postfix, prefix_postfix_separator=prefix_postfix_separator, name=name, domain=domain))
+                        names_with_additions.append("{prefix_postfix}{prefix_postfix_separator}www.{name}{domain}".format(prefix_postfix=prefix_postfix, prefix_postfix_separator=prefix_postfix_separator, name=name, domain=domain))
+                        names_with_additions.append("{name}{domain}{prefix_postfix_separator}{prefix_postfix}".format(name=name, domain=domain, prefix_postfix_separator=prefix_postfix_separator, prefix_postfix=prefix_postfix))
+                        names_with_additions.append("www.{name}{domain}{prefix_postfix_separator}{prefix_postfix}".format(name=name, domain=domain, prefix_postfix_separator=prefix_postfix_separator, prefix_postfix=prefix_postfix))
     names.extend(names_with_additions)
-
-
-def add_lower_case_versions(names):
-    """Add lowercase versions of everything in the list"""
-    lower_case_names = []
-    for name in names:
-        lower_case_names.append(name.lower())
-    names.extend(lower_case_names)
 
 
 def rchop(thestring, ending):

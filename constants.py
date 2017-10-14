@@ -17,22 +17,15 @@ entities = [
 space_replacements = ["", "-", "_"]
 
 #Prefixes and postfixes to add to the strings
-prefixes = [
-            "archive-", "archive.", 
-            "backup-", "backup.", 
-            "bak-", "bak.", 
-            "beta-", "beta.", 
-            "dev-", "dev.", 
-            "internal-", "internal."
+prefix_postfix_separators = ["", ".", "-", "_"]
+prefixes_postfixes = [
+                "archive", 
+                "backup", 
+                "bak", 
+                "beta", 
+                "dev", 
+                "internal"
            ]
-postfixes = [
-                "-archive", 
-                "-backup", 
-                "-bak", 
-                "-beta", 
-                "-dev", 
-                "-internal"
-            ]
 
 #Domains to add onto the string  (excluding .gov, .edu, etc as that will be more targeted)
 domains = [".com", ".net", ".org"]
