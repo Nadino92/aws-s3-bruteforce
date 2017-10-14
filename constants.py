@@ -28,6 +28,8 @@ prefixes_postfixes = [
                 "deployment", 
                 "dev", 
                 "files", 
+                "fiannces", 
+                "financial", 
                 "internal",
                 "key",
                 "keys",
