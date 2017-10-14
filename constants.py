@@ -17,7 +17,7 @@ entities = [
 space_replacements = ["", "-", "_"]
 
 #Prefixes and postfixes to add to the strings
-prefix_postfix_separators = ["", ".", "-", "_"]
+prefix_postfix_separators = [".", "-", "_"]
 prefixes_postfixes = [
                 "archive", 
                 "backup", 
@@ -28,4 +28,6 @@ prefixes_postfixes = [
            ]
 
 #Domains to add onto the string  (excluding .gov, .edu, etc as that will be more targeted)
-domains = [".com", ".net", ".org"]
+#This is removed for right now because it saw few positive results
+# domains = [".com", ".net", ".org"]
+domains = []
