@@ -15,8 +15,7 @@ If you want to do a bruteforce of bucket names across a character set via a mast
 
 # Prefixes and Postfixes
 #Prefixes and or postfixes such as "files" and "certs" can be added to the strings via the "-pp" or "--prefix_or_postfix" parameter.<br>
-The default is to use both. but you should only need it on the postfix, as that is how a majority of open buckets have been found<br>
-You can modify the list of strings and the separators (e.g. ".", "-", and "_") in the constants.py file.
+The default is to use both. but you should only need it on the postfix, as that is how a majority of open buckets have been found.  You can modify the list of strings and the separators (e.g. ".", "-", and "_") in the constants.py file.
 
 # Use - List
 #Single threaded scan of a given company name<br>
