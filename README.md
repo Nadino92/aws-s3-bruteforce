@@ -13,6 +13,11 @@ Companies and individuals, far too often, have public S3 buckets with client dat
 # Doing it at scale
 If you want to do a bruteforce of bucket names across a character set via a master-worker articture, send me a message.  I created one as part of a personal project but have yet to document it to the level required to make it a public repo.
 
+# Prefixes and Postfixes
+#Prefixes and or postfixes, e.g. "files" and "certs" can be added to the strings via the "-pp" or "--prefix_or_postfix" parameter.<br>
+The default is to use both. but you should only need it on the postfix, as that is how a majority of open buckets have been found<br>
+You can modify the list of strings and the separators (e.g. ".", "-", and "_") in the constants.py file.
+
 # Use - List
 #Single threaded scan of a given company name<br>
 ./find_public_buckets.py -t 1 -s "This Company Name"
