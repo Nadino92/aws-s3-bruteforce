@@ -23,6 +23,7 @@ prefixes_postfixes = [
                 "backup", 
                 "bak", 
                 "beta", 
+                "cdn",
                 "certs", 
                 "collector", 
                 "deployment", 
