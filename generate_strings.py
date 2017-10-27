@@ -53,14 +53,23 @@ def remove_junk_chars(string):
 
 
 def add_abbreviations(names):
+    chomped_strings = []
     for name in names:
         if len(name.split()) > 1:
-            abbreviated_string = ""
-            for word in name.split():
-                abbreviated_string += word[0]
-            names.append(abbreviated_string)
+            if name.startswith("the "):
+                new_name = name.replace("the ","")
+                if new_name not in chomped_strings:
+                    chomped_strings.append(new_name)
+                    names.append(get_abbreviated_string(new_name))
+            names.append(get_abbreviated_string(name))
     #Before going any further, be sure there aren't repeats to save memeory
     names = list(set(names))
+
+def get_abbreviated_string(name):
+    abbreviated_string = ""
+    for word in name.split():
+        abbreviated_string += word[0]
+    return abbreviated_string
 
 
 def add_with_no_entity(names):
