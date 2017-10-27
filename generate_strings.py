@@ -68,7 +68,10 @@ def add_acronyms(names, acronyms_only_option):
     acronyms = list(set(acronyms))
 
     if acronyms_only_option:
-        return acronyms
+        if acronyms:
+            return acronyms
+        else:
+            return names
     else:
         names.extend(acronyms)
         return names
