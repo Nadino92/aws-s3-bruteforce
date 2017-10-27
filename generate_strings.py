@@ -10,6 +10,7 @@ def get_string_variations(string, prefix_postfix_option):
 
     #All all sorts of variations of the name
     add_with_no_entity(names)
+    add_abbreviations(names)
     add_with_space_replacements(names)
     add_with_prefix_postfix_domains(names, prefix_postfix_option)
 
@@ -51,14 +52,25 @@ def remove_junk_chars(string):
     return names
 
 
+def add_abbreviations(names):
+    for name in names:
+        if len(name.split()) > 1:
+            abbreviated_string = ""
+            for word in name.split():
+                abbreviated_string += word[0]
+            names.append(abbreviated_string)
+    #Before going any further, be sure there aren't repeats to save memeory
+    names = list(set(names))
+
+
 def add_with_no_entity(names):
     """If an entity name, e.g. Inc. or Corp., is in the name, add the name without it"""
-    chomed_names = []
+    chomped_names = []
     for name in names:
         for entity in entities:
             if entity in name:
-                chomed_names.append(rchop(name, entity).strip())
-    names.extend(chomed_names)
+                chomped_names.append(rchop(name, entity).strip())
+    names.extend(chomped_names)
 
 
 def add_with_space_replacements(names):
