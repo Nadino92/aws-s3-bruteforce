@@ -25,6 +25,9 @@ You can modify the list of strings and the separators (e.g. ".", "-", and "_") i
 #Single threaded scan of a given company name, changing the output file<br>
 ./find_public_buckets.py -t 1 -s "This Company Name" -o thiscompanyname.log
 
+#Acronym only search of a given string 
+./find_public_buckets.py -t 1 -s "This Company Name" -ao
+
 #Dual threaded scan of the example file (company_names.txt)<br>
 ./find_public_buckets.py -t 2 -l comapny_names.txt
 
@@ -36,6 +39,9 @@ You can modify the list of strings and the separators (e.g. ".", "-", and "_") i
 
 #Dual threaded scan of the example file (company_names.txt), printing every guessed bucketname <br>
 ./find_public_buckets.py -t 2 -l comapny_names.txt -p
+
+#Acronym only search of a given file
+./find_public_buckets.py -t 2 -l comapny_names.txt -p --acronyms_only
 
 # Use - Random Strings
 #Random strings with lowercase and numbers, 4 char long <br>
