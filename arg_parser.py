@@ -58,6 +58,12 @@ parser.add_argument(
                     default="both",
                     help='(optional) Pick if you want to do add variablese to the "prefix" "postfix" or "both"',
                    )
+parser.add_argument(
+                    '-ao', 
+                    '--acronyms_only',
+                    action='store_true',
+                    help='Only run checks on name acronyms',
+                   )
 
 ###########################################################################
 ########            Start/Stop point related items                 ########

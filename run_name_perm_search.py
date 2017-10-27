@@ -13,10 +13,10 @@ from logger import *
 from search_obj import *
 
 
-def search_file(file_name, prefix_postfix_option, scanned_buckets, start_after_value, start_after_line_num, threads, print_bucket_names, output_file):
+def search_file(file_name, prefix_postfix_option, acronyms_only_option, scanned_buckets, start_after_value, start_after_line_num, threads, print_bucket_names, output_file):
     """Searches through the names in the file, one by one (to save memory)"""
     #Create base search instance
-    num_bucket_names = get_num_bucket_names(file_name, start_after_value, start_after_line_num, prefix_postfix_option)
+    num_bucket_names = get_num_bucket_names(file_name, start_after_value, start_after_line_num, prefix_postfix_option, acronyms_only_option)
     search = SearchNames(bucket_names=[], num_buckets=num_bucket_names, threads=threads, print_bucket_names=print_bucket_names, output_file=output_file)
 
 
@@ -33,18 +33,18 @@ def search_file(file_name, prefix_postfix_option, scanned_buckets, start_after_v
             continue
         else:
             if line and not any(scanned_bucket.strip() == line.strip() for scanned_bucket in scanned_buckets):
-                search.bucket_names = get_string_variations(line, prefix_postfix_option)
+                search.bucket_names = get_string_variations(line, prefix_postfix_option, acronyms_only_option)
                 start_search(search)
                 while search.bucket_names:
                     time.sleep(.5)
             else:
                 print "Already scanned {line}".format(line=line)
                 #Subtract the number of items skipped, to be sure #/sec isn't changed.
-                search.progress.total_items -= len(get_string_variations(line, prefix_postfix_option))
+                search.progress.total_items -= len(get_string_variations(line, prefix_postfix_option, acronyms_only_option))
                 search.progress(num_compelted=0)
 
 
-def get_num_bucket_names(file_name, start_after_value, start_after_line_num, prefix_postfix_option):
+def get_num_bucket_names(file_name, start_after_value, start_after_line_num, prefix_postfix_option, acronyms_only_option):
     """Calculates the number of buckets to scan, given the starting point that you want"""
     num_bucket_names = 0
     found_start = True
@@ -59,7 +59,7 @@ def get_num_bucket_names(file_name, start_after_value, start_after_line_num, pre
                 found_start = True
             continue
         else:
-            num_bucket_names += len(get_string_variations(line.strip(), prefix_postfix_option))
+            num_bucket_names += len(get_string_variations(line.strip(), prefix_postfix_option, acronyms_only_option))
     return num_bucket_names
 
 

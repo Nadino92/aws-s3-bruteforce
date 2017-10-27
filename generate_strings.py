@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from constants import *
 
-def get_string_variations(string, prefix_postfix_option):
+def get_string_variations(string, prefix_postfix_option, acronyms_only_option):
     #Names are not case sensitive
     string = string.lower()
 
@@ -10,7 +10,7 @@ def get_string_variations(string, prefix_postfix_option):
 
     #All all sorts of variations of the name
     add_with_no_entity(names)
-    add_abbreviations(names)
+    names = add_acronyms(names, acronyms_only_option)
     add_with_space_replacements(names)
     add_with_prefix_postfix_domains(names, prefix_postfix_option)
 
@@ -52,7 +52,9 @@ def remove_junk_chars(string):
     return names
 
 
-def add_abbreviations(names):
+def add_acronyms(names, acronyms_only_option):
+    acronyms = []
+
     chomped_strings = []
     for name in names:
         if len(name.split()) > 1:
@@ -60,10 +62,17 @@ def add_abbreviations(names):
                 new_name = name.replace("the ","")
                 if new_name not in chomped_strings:
                     chomped_strings.append(new_name)
-                    names.append(get_abbreviated_string(new_name))
-            names.append(get_abbreviated_string(name))
+                    acronyms.append(get_abbreviated_string(new_name))
+            acronyms.append(get_abbreviated_string(name))
     #Before going any further, be sure there aren't repeats to save memeory
-    names = list(set(names))
+    acronyms = list(set(acronyms))
+
+    if acronyms_only_option:
+        return acronyms
+    else:
+        names.extend(acronyms)
+        return names
+
 
 def get_abbreviated_string(name):
     abbreviated_string = ""
