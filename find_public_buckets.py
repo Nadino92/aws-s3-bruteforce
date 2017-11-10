@@ -8,7 +8,6 @@ from run_comb_perm_search import *
 from run_name_perm_search import *
 from run_random_search import *
 
-
 if __name__ == "__main__": 
     #Search a given list of company names, permuting them
     if args.list:
