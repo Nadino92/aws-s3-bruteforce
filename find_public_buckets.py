@@ -50,7 +50,8 @@ if __name__ == "__main__":
                                         print_bucket_names = args.print_bucket_names,
                                         output_file = args.output_file,
                                         start_after_value = None,
-                                        stop_at_value = None
+                                        stop_at_value = None,
+                                        prefix_postfix_option = args.prefix_or_postfix
                                     )
                                  )
         else:
@@ -67,7 +68,8 @@ if __name__ == "__main__":
                                         print_bucket_names = args.print_bucket_names,
                                         output_file = args.output_file,
                                         start_after_value = args.start_after_value,
-                                        stop_at_value = args.stop_at_value
+                                        stop_at_value = args.stop_at_value,
+                                        prefix_postfix_option = args.prefix_or_postfix
                                     )
                                 )
         else:
