@@ -33,7 +33,7 @@ def run_random_search(search):
     search.string_generator = createStringGenerator(search)
 
     my_queue = Queue.Queue()
-    for i in range(search.threads+1):
+    for i in range(search.threads):
         t = threading.Thread(target=search_instance, args=(search, ))
         my_queue.put(t)
 
