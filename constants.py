@@ -23,9 +23,10 @@ prefixes_postfixes = [
                 "backup", 
                 "bak", 
                 "beta", 
+                "bitcoin", 
                 "cdn",
                 "certs", 
-                "collector", 
+                "confidential", 
                 "deployment", 
                 "dev", 
                 "files", 
@@ -34,11 +35,14 @@ prefixes_postfixes = [
                 "internal",
                 "key",
                 "keys",
+                "operations",
+                "ops",
                 "password",
                 "passwords",
                 "software",
                 "ssl",
                 "tls",
+                "wallet",
            ]
 
 #Domains to add onto the string  (excluding .gov, .edu, etc as that will be more targeted)
