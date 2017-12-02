@@ -59,12 +59,13 @@ def search_instance(search):
                         search.buckets_found.append(bn)
                         log_bucket_found(bucket_response=bucket_response, output_file=search.output_file)
 
-                #Increment progress and sleep                
-                search.progressbar()
-                if search.print_bucket_names:
-                    search.progressbar.total_items += 1
-                    print bucket_names
-                time.sleep(sleep_sec_between_attempts)
+                    #Increment progress and sleep                
+                    search.progressbar()
+                    if search.print_bucket_names:
+                        search.progressbar.total_items += 1
+                        print bn
+                    time.sleep(sleep_sec_between_attempts)
+                    
         #Generator is empty...done
         except StopIteration:
             break
