@@ -12,7 +12,8 @@ def get_string_variations(string, prefix_postfix_option, acronyms_only_option):
     add_with_no_entity(names)
     names = add_acronyms(names, acronyms_only_option)
     add_with_space_replacements(names)
-    add_with_prefix_postfix_domains(names, prefix_postfix_option)
+    if prefix_postfix_option is not None:
+        add_with_prefix_postfix_domains(names, prefix_postfix_option)
 
     #Get the sorted set of names
     names = sorted(list(set(names)))

@@ -56,7 +56,7 @@ parser.add_argument(
                     '-pp', 
                     '--prefix_or_postfix',
                     default="both",
-                    help='(optional) Pick if you want to do add variablese to the "prefix" "postfix" or "both"',
+                    help='(optional) Pick if you want to do add variablese to the "prefix" "postfix" or "both" or "None"',
                    )
 parser.add_argument(
                     '-ao', 
