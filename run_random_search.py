@@ -61,8 +61,8 @@ def search_instance(search):
 
                     #Increment progress and sleep                
                     search.progressbar()
+                    search.progressbar.total_items += 1
                     if search.print_bucket_names:
-                        search.progressbar.total_items += 1
                         print bn
                     time.sleep(sleep_sec_between_attempts)
                     
