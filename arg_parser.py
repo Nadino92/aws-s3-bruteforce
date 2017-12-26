@@ -38,6 +38,11 @@ group.add_argument(
                     help='List file to use',
                    )
 group.add_argument(
+                    '-i',
+                    '--input_permutations',
+                    help='Input file with permutations already generated',
+                   )
+group.add_argument(
                     '-s',
                     '--string',
                     help='String to scan',

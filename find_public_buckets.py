@@ -34,6 +34,19 @@ if __name__ == "__main__":
                                 output_file = args.output_file,
                               )
                       )
+     #Search the already provided permutations
+    elif args.input_permutations:
+        # This returns a list of all the permutations specified in a file
+        bucket_names = load_permutations( args.input_permutations, args.prefix_or_postfix, args.acronyms_only )
+        start_search(
+                    SearchNames(
+                            bucket_names = bucket_names,
+                            num_buckets = len(bucket_names),
+                            threads = args.threads,
+                            print_bucket_names = args.print_bucket_names,
+                            output_file = args.output_file,
+                          )
+                  )
     #Search RANDOM combinations and permutations of a given set of characters for a given length or range of lengths
     elif args.random_string_options:
         if args.num_chars or args.num_chars_range:
