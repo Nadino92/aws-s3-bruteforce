@@ -23,6 +23,8 @@ AWS Authentication can be used via access and secret keys, as shown below.  This
 ./find_public_buckets.py -t 1 -s "dev" -ak "[ACCESS_KEY]" -sk "[SECRET_KEY]"
 
 # Use - List
+Iterate through a text file containing a list of bucket names to try<br><br>
+
 #Single threaded scan of a given company name<br>
 ./find_public_buckets.py -t 1 -s "This Company Name"
 
