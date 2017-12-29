@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 base_url = "https://s3.amazonaws.com/"
+prefixes_postfixes_file = "./prefixes_postfixes.txt"
 
 #Seconds to sleep between attempts
 sleep_sec_between_attempts = .05
@@ -18,34 +19,10 @@ space_replacements = ["", "-", "_"]
 
 #Prefixes and postfixes to add to the strings
 prefix_postfix_separators = ["", ".", "-", "_"]
-prefixes_postfixes = [
-                "archive", 
-                "backup", 
-                "bak", 
-                "beta", 
-                "bitcoin", 
-                "cdn",
-                "certs", 
-                "confidential", 
-                "deployment", 
-                "dev", 
-                "download", 
-                "files", 
-                "fiannces", 
-                "financial", 
-                "internal",
-                "key",
-                "keys",
-                "operations",
-                "ops",
-                "password",
-                "passwords",
-                "software",
-                "ssl",
-                "tls",
-                "upload",
-                "wallet",
-           ]
+# Loaded from the file specified in prefixes_postfixes_file
+prefixes_postfixes = []
+with open(prefixes_postfixes_file) as f:
+    prefixes_postfixes = [line.rstrip('\n') for line in f]
 
 #Domains to add onto the string  (excluding .gov, .edu, etc as that will be more targeted)
 #This is removed for right now because it saw few positive results

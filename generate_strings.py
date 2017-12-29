@@ -21,6 +21,24 @@ def get_string_variations(string, prefix_postfix_option, acronyms_only_option):
     #Return the names
     return names
 
+def load_permutations(filename, prefix_postfix_option, acronyms_only_option):
+    names = []
+    with open( filename ) as f:
+        names = [line.rstrip('\n') for line in f]
+    # Remove junk chars that can't be in the bucket name, e.g & , "
+    clean_names = []
+    for n in names:
+        clean_names += remove_junk_chars( n )
+
+    # All all sorts of variations of the name
+    add_with_space_replacements( names )
+
+    # Get the sorted set of names
+    names = sorted( list( set( names ) ) )
+
+    #Return the names
+    return names
+
 def remove_junk_chars(string):
     """Remove characters that shouldn't or won't be in a bucket name"""
     name = string
@@ -49,7 +67,6 @@ def remove_junk_chars(string):
     names.append(name.strip())
     if " and " in name:
         names.append(name.replace(" and ", " ").strip())
-
     return names
 
 
