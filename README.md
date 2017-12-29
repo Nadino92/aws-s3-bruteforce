@@ -19,7 +19,7 @@ The default is to use both. but you should only need it on the postfix, as that 
 You can modify the list of strings and the separators (e.g. ".", "-", and "_") in the constants.py file.
 
 # AWS Authentication
-AWS Authentication can be used via access and secret keys, as shown below.  This allows you to identify if a bucket has public access disabled but authenticated access enabled.  The bucket attribute 'authenticated_access' will be set to True if this is the case and it will be printed to the screen.<br>
+AWS Authentication can be used via access and secret keys, as shown below.  This allows you to identify if a bucket has public access disabled but authenticated access enabled.  The bucket attribute 'authenticated_access' will be set to True if this is the case and it will be printed to the screen.<br><br>
 ./find_public_buckets.py -t 1 -s "dev" -ak "[ACCESS_KEY]" -sk "[SECRET_KEY]"
 
 # Use - List
