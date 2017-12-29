@@ -18,6 +18,10 @@ Prefixes and postfixes, such as "files" and "certs", are added to the strings by
 The default is to use both. but you should only need it on the postfix, as that is how a majority of open buckets have been found.<br><br>
 You can modify the list of strings and the separators (e.g. ".", "-", and "_") in the constants.py file.
 
+# AWS Authentication
+AWS Authentication can be used via access and secret keys, as shown below.  This allows you to identify if a bucket has public access disabled but authenticated access enabled.  The bucket attribute 'authenticated_access' will be set to True if this is the case and it will be printed to the screen.
+./find_public_buckets.py -t 1 -s "dev" -ak "[ACCESS_KEY]" -sk "[SECRET_KEY]"
+
 # Use - List
 #Single threaded scan of a given company name<br>
 ./find_public_buckets.py -t 1 -s "This Company Name"
@@ -66,7 +70,7 @@ You can modify the list of strings and the separators (e.g. ".", "-", and "_") i
 #Random strings with lowercase and numbers, 4 char long, starting after "a999" and stoping at "caaa" non-inclusive<br>
 ./find_public_buckets.py -cp abcdefghijklmnopqrstuvwxyz0123456789 -c 4 -a a999 -f caaa
 
-# Output -p modifier to pring New Guesses
+# Output -p modifier to print New Guesses
 Without the -p modifier, you will see a progressbar, like below<br>
   0% [&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;] 28/21,147   3/sec   eta 1h 40m 22s
 

@@ -67,7 +67,7 @@ def search_instance(search):
             #Just in case the bucket has been found, don't try again.
             #Not storing all to prevent massive memory usage.
             if bucket_name not in search.buckets_found:
-                bucket_response = check_s3_bucket(bucket_name)
+                bucket_response = check_s3_bucket(bucket_name=bucket_name, access_key=search.access_key, secret_key=search.secret_key)
                 if bucket_response["exists"] == True:
                     search.buckets_found.append(bucket_name)
                     log_bucket_found(bucket_response=bucket_response, output_file=search.output_file)

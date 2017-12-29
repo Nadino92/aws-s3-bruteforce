@@ -54,7 +54,7 @@ def search_instance(search):
                 bucket_names = get_string_variations(bucket_name, search.prefix_postfix_option, acronyms_only_option=False)
 
                 for bn in bucket_names:
-                    bucket_response = check_s3_bucket(bn)
+                    bucket_response = check_s3_bucket(bucket_name=bn, access_key=search.access_key, secret_key=search.secret_key)
                     if bucket_response["exists"] == True:
                         search.buckets_found.append(bn)
                         log_bucket_found(bucket_response=bucket_response, output_file=search.output_file)
