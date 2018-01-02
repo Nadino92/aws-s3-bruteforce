@@ -47,28 +47,24 @@ def search_instance(search):
         try:
             bucket_name = search.string_generator.next()
 
-            #Just in case the bucket has been found, don't try again.
-            #Not storing all to prevent massive memory usage.
-            if bucket_name not in search.buckets_found:
+            bucket_names = get_string_variations(bucket_name, search.prefix_postfix_option, acronyms_only_option=False)
 
-                bucket_names = get_string_variations(bucket_name, search.prefix_postfix_option, acronyms_only_option=False)
+            for bn in bucket_names:
+                check_s3_bucket(bucket_name=bn, access_key=search.access_key, secret_key=search.secret_key, output_file=search.output_file)
 
-                for bn in bucket_names:
-                    bucket_response = check_s3_bucket(bucket_name=bn, access_key=search.access_key, secret_key=search.secret_key)
-                    if bucket_response["exists"] == True:
-                        search.buckets_found.append(bn)
-                        log_bucket_found(bucket_response=bucket_response, output_file=search.output_file)
-
-                    #Increment progress and sleep                
-                    search.progressbar()
-                    search.progressbar.total_items += 1
-                    if search.print_bucket_names:
-                        print bn
-                    time.sleep(sleep_sec_between_attempts)
+                #Increment progress and sleep                
+                search.progressbar()
+                search.progressbar.total_items += 1
+                if search.print_bucket_names:
+                    print bn
+                time.sleep(sleep_sec_between_attempts)
                     
         #Generator is empty...done
         except StopIteration:
             break
         #Generator is already running for another thread
         except ValueError:
+            pass
+        #Catchall for other issues
+        except:
             pass

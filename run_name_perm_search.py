@@ -72,17 +72,19 @@ def start_search(search):
 
     #Run all of the threads
     while not my_queue.empty():
-        my_queue.get().start()
+        try:
+            my_queue.get().start()
+        except Exception as e:
+            print "Error: %s" % (e)
 
 
 def search_instance(search):
     """Run an threads of the s3 brute forcer"""
     while search.bucket_names:
         bucket_name = search.bucket_names.pop(0)       #Pops from start of array, use no param for end
-        bucket_response = check_s3_bucket(bucket_name=bucket_name, access_key=search.access_key, secret_key=search.secret_key)
-        if bucket_response["exists"] == True:
-            log_bucket_found(bucket_response=bucket_response, output_file=search.output_file)
+        check_s3_bucket(bucket_name=bucket_name, access_key=search.access_key, secret_key=search.secret_key, output_file=search.output_file)
+        
         time.sleep(sleep_sec_between_attempts)
         search.progress()
         if search.print_bucket_names:
-            print bucket_response["name"]
+            print bucket_name

@@ -195,6 +195,7 @@ ui
 ui-staging
 upload
 uploads
+user
 user-files
 users
 ux

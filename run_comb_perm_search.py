@@ -64,26 +64,23 @@ def search_instance(search):
                 search.progressbar.total_items -= 1
                 continue
             
-            #Just in case the bucket has been found, don't try again.
-            #Not storing all to prevent massive memory usage.
-            if bucket_name not in search.buckets_found:
-                bucket_response = check_s3_bucket(bucket_name=bucket_name, access_key=search.access_key, secret_key=search.secret_key)
-                if bucket_response["exists"] == True:
-                    search.buckets_found.append(bucket_name)
-                    log_bucket_found(bucket_response=bucket_response, output_file=search.output_file)
+            #Check the bucket
+            check_s3_bucket(bucket_name=bucket_name, access_key=search.access_key, secret_key=search.secret_key, output_file=search.output_file)
+            #Increment progress and sleep                
+            search.progressbar()
+            if search.print_bucket_names:
+                print bucket_name
+            time.sleep(sleep_sec_between_attempts)
 
-                #Increment progress and sleep                
-                search.progressbar()
-                if search.print_bucket_names:
-                    print bucket_name
-                time.sleep(sleep_sec_between_attempts)
         #Generator is empty...done
         except StopIteration:
             break
         #Generator is already running for another thread
         except ValueError:
             pass
-
+        #Catchall for other issues
+        except:
+            pass
 
 def get_num_comb_perm(string_options, num_chars):
     """Gets the number of combintions/permutations for the given string and number of chars"""

@@ -21,11 +21,11 @@ def get_buckets_found(output_file):
         return bucket_names
 
 
-def log_bucket_found(bucket_response, output_file):
+def log_bucket_found(bucket_result, output_file):
     if not output_file:
         output_file = "buckets_found.txt"
 
     """Writes potentially open buckets to a file"""
     f = open(output_file, "a")
-    f.write("{bucket_response}\n".format(bucket_response=str(bucket_response)))
+    f.write("{bucket_result}\n".format(bucket_result=str(bucket_result)))
     f.close()
