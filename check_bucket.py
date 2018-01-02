@@ -61,9 +61,6 @@ def check_s3_bucket(bucket_name, access_key, secret_key, output_file, redirect=F
                                     redirect=True
                                   )
    
-
-    print request.text
-
     #Check to see if the bucket does not exist
     for no_bucket_response in no_bucket_responses:
         if "<Code>{message}</Code>".format(message=no_bucket_response) in request.text:
