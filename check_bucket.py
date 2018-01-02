@@ -42,21 +42,17 @@ def check_s3_bucket(bucket_name, access_key, secret_key, output_file, redirect=F
                         "redirected":False,
                     }
 
-    #Get the response to the bucket's access, returning if there was an error
-    try:
-        request = requests.get(bucket_result["url"], verify=False)
-    except Exception as e:
-        bucket_result["error"] = e
-        return bucket_result
-
 
     #Check if you are in a redirect or are supposed to be redirected.
     if redirect:
         bucket_result["redirected"] = True
         bucket_result["url"] = "https://{bucket_name}.s3.amazonaws.com".format(bucket_name=bucket_name)
+        request = get_bucket(url=bucket_result["url"])
     else:
+        request = get_bucket(url=bucket_result["url"])
         #If a redirect is seen, go to it
-        if "<Endpoint>" in request.text:
+        if "<Endpoint>" in request.text or "PermanentRedirect" in request.text:
+            print "redirecting"
             return check_s3_bucket(
                                     bucket_name=re.search("<Endpoint>(.+?)</Endpoint>", request.text).group(1).replace(".s3.amazonaws.com",""), 
                                     access_key=access_key, 
@@ -66,13 +62,14 @@ def check_s3_bucket(bucket_name, access_key, secret_key, output_file, redirect=F
                                   )
    
 
+    print request.text
+
     #Check to see if the bucket does not exist
     for no_bucket_response in no_bucket_responses:
         if "<Code>{message}</Code>".format(message=no_bucket_response) in request.text:
             bucket_result["error"] = no_bucket_response
             # log_bucket_found(bucket_result=bucket_result, output_file=output_file)   #Not going to log non-existant buckets
             return
-
 
     for denied_response in denied_responses:
         if "<Code>{message}</Code>".format(message=denied_response) in request.text:
@@ -112,6 +109,14 @@ def check_s3_bucket(bucket_name, access_key, secret_key, output_file, redirect=F
 
     #Log the final result for the bucket
     log_bucket_found(bucket_result=bucket_result, output_file=output_file)
+
+
+def get_bucket(url):
+    #Get the response to the bucket's access, returning if there was an error
+    try:
+        return requests.get(url, verify=False)
+    except:
+        return None
 
 
 def check_acl(bucket):
