@@ -111,7 +111,6 @@ def check_s3_bucket(bucket_name, access_key, secret_key, output_file, redirect=F
             bucket_result["empty"] = True
 
     #Log the final result for the bucket
-    print "logging"
     log_bucket_found(bucket_result=bucket_result, output_file=output_file)
 
 
