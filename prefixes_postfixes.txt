@@ -55,10 +55,14 @@ content
 contracts
 corporate
 data
+database
+databases
 data-export
 data-exports
 dataset
 datasets
+db
+dbs
 delivery-app-storage
 deliveryappstorage
 deployment
@@ -172,6 +176,7 @@ smoke
 software
 splunk
 spreadsheets
+sql
 ssl
 stage
 staging
