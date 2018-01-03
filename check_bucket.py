@@ -52,7 +52,6 @@ def check_s3_bucket(bucket_name, access_key, secret_key, output_file, redirect=F
         request = get_bucket(url=bucket_result["url"])
         #If a redirect is seen, go to it
         if "<Endpoint>" in request.text or "PermanentRedirect" in request.text:
-            print "redirecting"
             return check_s3_bucket(
                                     bucket_name=re.search("<Endpoint>(.+?)</Endpoint>", request.text).group(1).replace(".s3.amazonaws.com",""), 
                                     access_key=access_key, 
