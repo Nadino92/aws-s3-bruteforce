@@ -37,7 +37,7 @@ def check_s3_bucket(bucket_name, access_key, secret_key, output_file, redirect=F
                         "exists":False,
                         "public":None,
                         "authenticated_access":False,
-                        "empty":None,
+                        "empty":False,
                         "error":False,
                         "redirected":False,
                     }
