@@ -72,10 +72,13 @@ class ProgressBar(object):
     def get_eta(self, time_left):
         """Print the num hour, min and/or sec for the given number of seconds"""
         time_remaining = time.gmtime(time_left)
+        months_left = time_remaining.tm_mon-1
         days_left = time_remaining.tm_mday-1
-        if days_left > 0:
+        if months_left:
+            return "{months_left}m {days_left}d {hr}h {min}m {sec}s".format(months_left=months_left, days_left=days_left, hr=time_remaining.tm_hour, min=time_remaining.tm_min, sec=time_remaining.tm_sec)
+        elif days_left:
             return "{days_left}d {hr}h {min}m {sec}s".format(days_left=days_left, hr=time_remaining.tm_hour, min=time_remaining.tm_min, sec=time_remaining.tm_sec)
-        if time_remaining.tm_hour:
+        elif time_remaining.tm_hour:
             return "{hr}h {min}m {sec}s".format(hr=time_remaining.tm_hour, min=time_remaining.tm_min, sec=time_remaining.tm_sec)
         elif time_remaining.tm_min:
             return "{min}m {sec}s".format(min=time_remaining.tm_min, sec=time_remaining.tm_sec)
