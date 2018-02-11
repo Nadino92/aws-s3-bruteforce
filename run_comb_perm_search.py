@@ -7,6 +7,8 @@ from progressbar import ProgressBar
 from constants import *
 from check_bucket import *
 from logger import *
+from generate_strings import *
+
 
 def createStringGenerator(string_options, num_chars):
     for item in itertools.product(string_options, repeat=num_chars):
@@ -16,7 +18,7 @@ def createStringGenerator(string_options, num_chars):
 def run_comb_perm_search(search):
     #Create progressbar to show how many searches have been done, removing eta
     search.progressbar = ProgressBar(total_items=get_num_comb_perm(string_options=search.string_options, num_chars=search.num_chars))
-    search.progressbar.fmt = '''%(percent)3d%% %(bar)s %(current)s/%(total_items)s   %(items_per_sec)s   ETA: %(eta)s'''
+    search.progressbar.fmt = '''%(percent)3d%% %(bar)s %(current)s/%(total_items)s   %(items_per_sec)s   ETA: %(eta)s   Bucket: %(bucket_name)s'''
 
     #Get all public butets that have been found so far
     search.buckets_found = get_buckets_found(search.output_file)
@@ -67,9 +69,12 @@ def search_instance(search):
             #Check the bucket
             check_s3_bucket(bucket_name=bucket_name, access_key=search.access_key, secret_key=search.secret_key, output_file=search.output_file)
             #Increment progress and sleep                
-            search.progressbar()
+
             if search.print_bucket_names:
-                print bucket_name
+                search.progressbar(print_bucket_names=search.print_bucket_names, bucket_name=bucket_name)
+            else:
+                search.progressbar()
+
             time.sleep(sleep_sec_between_attempts)
 
         #Generator is empty...done

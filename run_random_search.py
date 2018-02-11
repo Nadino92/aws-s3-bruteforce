@@ -21,8 +21,8 @@ def createStringGenerator(search):
 
 def run_random_search(search):
     #Create progressbar to show how many searches have been done, removing eta
-    search.progressbar = ProgressBar(1)
-    search.progressbar.fmt = '''%(percent)3d%% %(bar)s %(current)s/%(total_items)s   %(items_per_sec)s   Run time: %(run_time)s'''
+    search.progressbar = ProgressBar(0)
+    search.progressbar.fmt = '''%(percent)3d%% %(bar)s %(current)s/%(total_items)s   %(items_per_sec)s   Run time: %(run_time)s   Bucket: %(bucket_name)s'''
 
     buckets_found = get_buckets_found(search.output_file)
 
@@ -52,11 +52,14 @@ def search_instance(search):
             for bn in bucket_names:
                 check_s3_bucket(bucket_name=bn, access_key=search.access_key, secret_key=search.secret_key, output_file=search.output_file)
 
-                #Increment progress and sleep                
-                search.progressbar()
-                search.progressbar.total_items += 1
+                #Increment progress and sleep              
                 if search.print_bucket_names:
-                    print bn
+                    search.progressbar.total_items += 1
+                    search.progressbar(print_bucket_names=search.print_bucket_names, bucket_name=bn)
+                else:
+                    search.progressbar.total_items += 1
+                    search.progressbar()
+
                 time.sleep(sleep_sec_between_attempts)
                     
         #Generator is empty...done

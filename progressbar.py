@@ -20,12 +20,12 @@ class ProgressBar(object):
         self.width = 40                 #Length of progress bar
         self.symbol = "#"               #Needs to be 1 char
         self.output = sys.stderr
-        self.fmt = '''%(percent)3d%% %(bar)s %(current)s/%(total_items)s   %(items_per_sec)s   ETA: %(eta)s'''
+        self.fmt = '''%(percent)3d%% %(bar)s %(current)s/%(total_items)s   %(items_per_sec)s   ETA: %(eta)s    Bucket: %(bucket_name)s'''
         assert len(self.symbol) == 1    #If higher, progress bar won't populate properly
         assert self.width <= 150        #If higher, it'll takeup more than one line of text
 
 
-    def __call__(self, num_compelted=1):
+    def __call__(self, num_compelted=1, print_bucket_names=False, bucket_name=""):
         """Actions to run when progress is run"""
 
         #Initialize the start time as the first iteration (just in case progress bar is initialized early)
@@ -50,6 +50,10 @@ class ProgressBar(object):
 
 
         #Args to populate into fmt
+        if print_bucket_names:
+            bn = bucket_name+"\n"
+        else:
+            bn = ""
         args = {
             'percent': (percent * 100),
             'bar': '''[{symbols}{spaces}]'''.format(symbols=(self.symbol * size), spaces=' ' * (self.width - size)),
@@ -58,6 +62,7 @@ class ProgressBar(object):
             'items_per_sec': "{items_per_sec}/sec".format(items_per_sec="{:,}".format(int(self.current / run_time))),
             'eta': self.get_eta(int(time_left)),
             'run_time': self.get_eta(run_time),
+            'bucket_name': bn,
         }
 
         #Print the update
