@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 base_url = "https://s3.amazonaws.com/"
-prefixes_postfixes_file = "./prefixes_postfixes.txt"
 
 #Seconds to sleep between attempts
 sleep_sec_between_attempts = .05
@@ -19,7 +18,9 @@ space_replacements = ["", "-", "_"]
 
 #Prefixes and postfixes to add to the strings
 prefix_postfix_separators = ["", ".", "-", "_"]
+
 # Loaded from the file specified in prefixes_postfixes_file
+prefixes_postfixes_file = "./prefixes_postfixes.txt"
 prefixes_postfixes = []
 with open(prefixes_postfixes_file) as f:
     prefixes_postfixes = [line.rstrip('\n') for line in f]

@@ -14,11 +14,16 @@ Companies and individuals, far too often, have public S3 buckets with client dat
 If you want to do a bruteforce of bucket names across a character set via a master-worker articture, send me a message.  I created one as part of a personal project but have yet to document it to the level required to make it a public repo.
 
 # Prefixes and Postfixes
-Prefixes and postfixes, such as "files" and "certs", are added to the strings by default.  Behavior change be changed via the "-pp" or "--prefix_or_postfix" parameter to show "prefix" or "postfix" only.<br><br>
+Prefixes and postfixes, such as "files" and "certs", are added to the strings by default.  Behavior change be changed via the "-pp" or "--prefix_or_postfix" parameter to show "prefix" or "postfix" only or "None" to show none.<br><br>
 The default is to use both. but you should only need it on the postfix, as that is how a majority of open buckets have been found.<br><br>
 You can modify the list of strings and the separators (e.g. ".", "-", and "_") in the constants.py file.
 
-# Use - List
+# AWS Authentication
+AWS Authentication can be used via access and secret keys, as shown below.  This allows you to identify if a bucket has public access disabled but authenticated access enabled.  The bucket attribute 'authenticated_access' will be set to True if this is the case and it will be printed to the screen.<br><br>
+./find_public_buckets.py -t 1 -s "dev" -ak "[ACCESS_KEY]" -sk "[SECRET_KEY]"
+
+# Use - Text file of bucket names to try
+
 #Single threaded scan of a given company name<br>
 ./find_public_buckets.py -t 1 -s "This Company Name"
 
@@ -66,7 +71,7 @@ You can modify the list of strings and the separators (e.g. ".", "-", and "_") i
 #Random strings with lowercase and numbers, 4 char long, starting after "a999" and stoping at "caaa" non-inclusive<br>
 ./find_public_buckets.py -cp abcdefghijklmnopqrstuvwxyz0123456789 -c 4 -a a999 -f caaa
 
-# Output -p modifier to pring New Guesses
+# Output -p modifier to print New Guesses
 Without the -p modifier, you will see a progressbar, like below<br>
   0% [&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;] 28/21,147   3/sec   eta 1h 40m 22s
 

@@ -10,6 +10,7 @@ from run_random_search import *
 
 if __name__ == "__main__": 
     #Search a given list of company names, permuting them
+
     if args.list:
         bucket_names = search_file(
                                     file_name = args.list,
@@ -20,7 +21,9 @@ if __name__ == "__main__":
                                     start_after_line_num = args.start_after_line_num,
                                     threads = args.threads,
                                     print_bucket_names = args.print_bucket_names,
-                                    output_file = args.output_file
+                                    output_file = args.output_file,
+                                    access_key = args.access_key,
+                                    secret_key = args.secret_key
                                   )
     #Search permutations of a string
     elif args.string:
@@ -32,6 +35,8 @@ if __name__ == "__main__":
                                 threads = args.threads,
                                 print_bucket_names = args.print_bucket_names,
                                 output_file = args.output_file,
+                                access_key = args.access_key,
+                                secret_key = args.secret_key
                               )
                       )
      #Search the already provided permutations
@@ -45,6 +50,8 @@ if __name__ == "__main__":
                             threads = args.threads,
                             print_bucket_names = args.print_bucket_names,
                             output_file = args.output_file,
+                            access_key = args.access_key,
+                            secret_key = args.secret_key
                           )
                   )
     #Search RANDOM combinations and permutations of a given set of characters for a given length or range of lengths
@@ -63,7 +70,9 @@ if __name__ == "__main__":
                                         output_file = args.output_file,
                                         start_after_value = None,
                                         stop_at_value = None,
-                                        prefix_postfix_option = args.prefix_or_postfix
+                                        prefix_postfix_option = args.prefix_or_postfix,
+                                        access_key = args.access_key,
+                                        secret_key = args.secret_key
                                     )
                                  )
         else:
@@ -81,7 +90,9 @@ if __name__ == "__main__":
                                         output_file = args.output_file,
                                         start_after_value = args.start_after_value,
                                         stop_at_value = args.stop_at_value,
-                                        prefix_postfix_option = args.prefix_or_postfix
+                                        prefix_postfix_option = args.prefix_or_postfix,
+                                        access_key = args.access_key,
+                                        secret_key = args.secret_key
                                     )
                                 )
         else:

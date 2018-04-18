@@ -21,8 +21,8 @@ def createStringGenerator(search):
 
 def run_random_search(search):
     #Create progressbar to show how many searches have been done, removing eta
-    search.progressbar = ProgressBar(1)
-    search.progressbar.fmt = '''%(percent)3d%% %(bar)s %(current)s/%(total_items)s   %(items_per_sec)s   Run time: %(run_time)s'''
+    search.progressbar = ProgressBar(0)
+    search.progressbar.fmt = '''%(percent)3d%% %(bar)s %(current)s/%(total_items)s   %(items_per_sec)s   Run time: %(run_time)s   Bucket: %(bucket_name)s'''
 
     buckets_found = get_buckets_found(search.output_file)
 
@@ -47,28 +47,27 @@ def search_instance(search):
         try:
             bucket_name = search.string_generator.next()
 
-            #Just in case the bucket has been found, don't try again.
-            #Not storing all to prevent massive memory usage.
-            if bucket_name not in search.buckets_found:
+            bucket_names = get_string_variations(bucket_name, search.prefix_postfix_option, acronyms_only_option=False)
 
-                bucket_names = get_string_variations(bucket_name, search.prefix_postfix_option, acronyms_only_option=False)
+            for bn in bucket_names:
+                check_s3_bucket(bucket_name=bn, access_key=search.access_key, secret_key=search.secret_key, output_file=search.output_file)
 
-                for bn in bucket_names:
-                    bucket_response = check_s3_bucket(bn)
-                    if bucket_response["exists"] == True:
-                        search.buckets_found.append(bn)
-                        log_bucket_found(bucket_response=bucket_response, output_file=search.output_file)
-
-                    #Increment progress and sleep                
-                    search.progressbar()
+                #Increment progress and sleep              
+                if search.print_bucket_names:
                     search.progressbar.total_items += 1
-                    if search.print_bucket_names:
-                        print bn
-                    time.sleep(sleep_sec_between_attempts)
+                    search.progressbar(print_bucket_names=search.print_bucket_names, bucket_name=bn)
+                else:
+                    search.progressbar.total_items += 1
+                    search.progressbar()
+
+                time.sleep(sleep_sec_between_attempts)
                     
         #Generator is empty...done
         except StopIteration:
             break
         #Generator is already running for another thread
         except ValueError:
+            pass
+        #Catchall for other issues
+        except:
             pass
